@@ -1,0 +1,268 @@
+# Linear Design System - Cursor Rules
+
+## 🎨 Design System Overview
+This project uses a complete Linear.app-based design system with crawled data and official design tokens. All components follow Linear's dark-first approach and maintain consistency across the application.
+
+## 📁 Component Architecture
+
+### Core UI Components (Required Usage)
+All UI development MUST use these existing components from `/components/ui/`:
+
+#### Buttons
+```typescript
+// Use Button component - NEVER create custom buttons
+import { Button } from '@/components/ui/Button';
+
+// Available variants: 'primary' | 'secondary' | 'ghost'
+// Available sizes: 'sm' | 'md' | 'lg'
+<Button variant="primary" size="md" loading={false} icon={icon}>
+  Button Text
+</Button>
+```
+
+#### Cards
+```typescript
+// Use Card system - NEVER create custom card components
+import { Card, CardHeader, CardTitle, CardContent, CardFooter, CardImage, ImageCard } from '@/components/ui/Card';
+
+// Basic card structure
+<Card variant="elevated" padding="md" hover>
+  <CardHeader>
+    <CardTitle level={3}>Title</CardTitle>
+  </CardHeader>
+  <CardContent>Content here</CardContent>
+  <CardFooter>Footer content</CardFooter>
+</Card>
+
+// Image cards with aspect ratios
+<ImageCard
+  image="image-url"
+  imageAlt="alt text"
+  imageAspectRatio="video" // 'square' | 'video' | 'wide' | 'tall'
+  title="Card Title"
+  description="Card description"
+  variant="elevated"
+/>
+```
+
+#### Form Inputs
+```typescript
+// Use Input/Textarea - NEVER create custom form elements
+import { Input, Textarea } from '@/components/ui/Input';
+
+<Input
+  label="Label"
+  placeholder="Placeholder"
+  error="Error message"
+  hint="Helper text"
+  leftIcon={<Icon />}
+  rightIcon={<Icon />}
+/>
+
+<Textarea
+  label="Label"
+  placeholder="Placeholder"
+  rows={4}
+  resize="vertical"
+/>
+```
+
+#### Badges & Status
+```typescript
+// Use Badge system for all status indicators
+import { Badge, StatusIndicator, PriorityBadge } from '@/components/ui/Badge';
+
+<Badge variant="success" size="md" dot>Status</Badge>
+<StatusIndicator status="online" showLabel />
+<PriorityBadge priority="high" showIcon />
+```
+
+#### Carousel
+```typescript
+// Use Carousel for all slider/carousel needs
+import { Carousel, CarouselCard } from '@/components/ui/Carousel';
+
+<Carousel
+  autoPlay={true}
+  autoPlayInterval={3000}
+  showIndicators={true}
+  showNavigation={true}
+  itemsPerView={1}
+  items={carouselItems}
+/>
+```
+
+### Layout Components (Required Usage)
+All layout development MUST use these components from `/components/layout/`:
+
+#### Navigation
+```typescript
+// Use Navbar - NEVER create custom navigation
+import { Navbar } from '@/components/layout/Navbar';
+
+<Navbar
+  brand={{ name: 'App Name', href: '/' }}
+  items={navItems}
+  actions={<Button>Action</Button>}
+  sticky={true}
+  transparent={false}
+/>
+```
+
+#### Footer
+```typescript
+// Use Footer - NEVER create custom footers
+import { Footer, SocialIcons } from '@/components/layout/Footer';
+
+<Footer
+  brand={{ name: 'App Name', description: 'Description' }}
+  sections={footerSections}
+  socialLinks={socialLinks}
+  compact={false}
+/>
+```
+
+#### Hero Sections
+```typescript
+// Use Hero components - NEVER create custom hero sections
+import { Hero, GradientHero, MinimalHero, ImageHero } from '@/components/layout/Hero';
+
+<Hero
+  title="Hero Title"
+  subtitle="Subtitle"
+  description="Description"
+  actions={heroActions}
+  gradient={true}
+  centered={true}
+/>
+```
+
+## 🎨 Theme & Styling Rules
+
+### CSS Variables (MANDATORY)
+ALWAYS use Linear design tokens - NEVER hardcode colors or spacing:
+
+```css
+/* Colors */
+--linear-bg-primary, --linear-bg-secondary, --linear-bg-tertiary
+--linear-text-primary, --linear-text-secondary, --linear-text-tertiary
+--linear-accent, --linear-accent-hover, --linear-accent-pressed
+--linear-border-primary, --linear-border-secondary, --linear-border-focus
+--linear-status-error, --linear-status-warning, --linear-status-success, --linear-status-info
+
+/* Typography */
+--linear-font-primary, --linear-font-mono
+--linear-text-micro, --linear-text-mini, --linear-text-small, --linear-text-regular, --linear-text-large
+--linear-text-title1, --linear-text-title2, --linear-text-title3, --linear-text-title4
+--linear-font-weight-normal, --linear-font-weight-medium, --linear-font-weight-semibold, --linear-font-weight-bold
+
+/* Spacing */
+--linear-space-1 (4px), --linear-space-2 (8px), --linear-space-3 (12px), --linear-space-4 (16px)
+--linear-space-5 (20px), --linear-space-6 (24px), --linear-space-8 (32px), --linear-space-10 (40px)
+
+/* Border Radius */
+--linear-radius-xs, --linear-radius-sm, --linear-radius-md, --linear-radius-lg
+--linear-radius-xl, --linear-radius-2xl, --linear-radius-3xl, --linear-radius-4xl
+
+/* Shadows */
+--linear-shadow-small, --linear-shadow-medium, --linear-shadow-large, --linear-shadow-floating, --linear-shadow-glow
+
+/* Animation */
+--linear-duration-fast, --linear-duration-normal, --linear-duration-slow
+--linear-easing
+```
+
+### Theme Provider (MANDATORY)
+ALWAYS wrap your app with ThemeProvider:
+
+```typescript
+import { ThemeProvider, ThemeToggle } from '@/components/ThemeProvider';
+
+// App root
+<ThemeProvider defaultTheme="dark">
+  {children}
+</ThemeProvider>
+
+// Theme toggle button
+<ThemeToggle variant="icon" size="md" />
+```
+
+## 🚫 Forbidden Practices
+
+### DO NOT:
+1. Create custom buttons, cards, inputs, or form elements
+2. Hardcode colors, spacing, or typography values
+3. Use inline styles for colors or spacing (use CSS variables)
+4. Create custom navigation or footer components
+5. Use external UI libraries (Material-UI, Ant Design, etc.)
+6. Create custom carousel/slider components
+7. Ignore the existing component variants and props
+8. Use CSS frameworks that conflict with Linear design system
+
+### ALWAYS:
+1. Import and use existing components from `/components/ui/` and `/components/layout/`
+2. Use Linear CSS variables for all styling
+3. Follow TypeScript interfaces for component props
+4. Use the ThemeProvider for theme management
+5. Maintain component consistency across the application
+6. Test components in both dark and light themes
+7. Use proper semantic HTML through component composition
+
+## 📦 Component Import Paths
+
+```typescript
+// UI Components
+import { Button } from '@/components/ui/Button';
+import { Card, CardHeader, CardTitle, CardContent, CardFooter, CardImage, ImageCard } from '@/components/ui/Card';
+import { Input, Textarea } from '@/components/ui/Input';
+import { Badge, StatusIndicator, PriorityBadge } from '@/components/ui/Badge';
+import { Carousel, CarouselCard } from '@/components/ui/Carousel';
+
+// Layout Components
+import { Navbar } from '@/components/layout/Navbar';
+import { Footer, SocialIcons } from '@/components/layout/Footer';
+import { Hero, GradientHero, MinimalHero, ImageHero } from '@/components/layout/Hero';
+
+// Theme
+import { ThemeProvider, ThemeToggle, useTheme } from '@/components/ThemeProvider';
+
+// Theme configuration
+import { linearThemes, typography, spacing, borderRadius, components } from '@/lib/theme';
+```
+
+## 🎯 Component Selection Guide
+
+### When to use which component:
+
+**Buttons**: Use `Button` with appropriate variant (`primary` for main actions, `secondary` for secondary actions, `ghost` for subtle actions)
+
+**Cards**: Use `Card` for basic containers, `ImageCard` for content with images, `CarouselCard` inside carousels
+
+**Forms**: Use `Input` for text inputs, `Textarea` for multi-line text, always include proper labels and error handling
+
+**Status**: Use `Badge` for general status, `StatusIndicator` for online/offline states, `PriorityBadge` for task priorities
+
+**Navigation**: Use `Navbar` for top navigation, ensure responsive design with mobile menu
+
+**Content Sections**: Use `Hero` variants for landing sections, `Footer` for page footers
+
+**Data Display**: Use `Carousel` for image galleries, featured content, or testimonials
+
+## 📝 Code Quality Standards
+
+1. **TypeScript**: All components are fully typed - respect the interfaces
+2. **Accessibility**: Components follow WCAG AA standards - don't override accessibility features
+3. **Responsive**: All components are mobile-first responsive - test on different screen sizes
+4. **Performance**: Components are optimized - don't add unnecessary re-renders
+5. **Consistency**: Follow the established patterns - maintain design system integrity
+
+## 🔧 Development Workflow
+
+1. Always check existing components before creating new ones
+2. Use component variants and props instead of creating similar components
+3. Extend existing components through composition, not modification
+4. Test in both dark and light themes
+5. Ensure responsive behavior on all devices
+6. Follow the established file structure and naming conventions
+
+Remember: This design system is based on actual Linear.app data and maintains their design philosophy. Consistency is key to providing a professional, cohesive user experience.
