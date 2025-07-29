@@ -4,9 +4,9 @@
   "description": "Linear.app design system components demo",
   "main": "index.js",
   "scripts": {
-    "dev": "next dev",
+    "dev": "next dev -p 3004",
     "build": "next build",
-    "start": "next start",
+    "start": "next start -p 3004",
     "lint": "eslint . --ext js,jsx,ts,tsx",
     "type-check": "tsc --noEmit"
   },
