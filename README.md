@@ -29,23 +29,23 @@ npm install
 npm run dev
 ```
 
-[http://localhost:3000](http://localhost:3000)에서 결과를 확인하세요.
+[http://localhost:3004](http://localhost:3004)에서 결과를 확인하세요.
 
 ## 📦 컴포넌트
 
 ### UI 컴포넌트
 
-- **Button** - 3가지 variant (primary, secondary, ghost), 로딩 상태 지원
-- **Card** - 기본/elevated/interactive 버전, 이미지 지원
-- **Input/Textarea** - 라벨, 에러, 힌트, 아이콘 지원
-- **Badge** - 상태 배지, 우선순위 배지, 상태 표시기
+- **Button** ⭐ **완벽한 pill 형태** - 3가지 variant (primary, secondary, ghost), 고정 픽셀 사이즈, CSS 전용 hover 효과
+- **Card** - 기본/elevated/interactive 버전, 이미지 지원, aspect ratio 지원
+- **Input/Textarea** - 라벨, 에러, 힌트, 아이콘 지원, 완전한 접근성
+- **Badge** - 상태 배지, 우선순위 배지, 상태 표시기, 다양한 색상 변형
 - **Carousel** - 자동 재생, 내비게이션, 인디케이터, 멀티아이템 지원
 
 ### 레이아웃 컴포넌트
 
-- **Navbar** - 반응형 디자인, 모바일 메뉴, sticky 헤더
-- **Footer** - 링크 섹션, 소셜 아이콘, 반응형 레이아웃
-- **Hero** - CTA 버튼, 그라데이션, 이미지 배경 지원
+- **Navbar** - 반응형 디자인, 모바일 메뉴, sticky 헤더, 브랜드 로고 지원
+- **Footer** - 링크 섹션, 소셜 아이콘, 반응형 레이아웃, 컴팩트 모드
+- **Hero** - 다양한 변형 (Gradient, Minimal, Image), CTA 버튼, 패턴 배경
 
 ## 🎨 디자인 토큰
 
@@ -79,25 +79,55 @@ npm run dev
 
 프로젝트의 `.cursorrules` 파일을 참조하여 일관된 컴포넌트 사용법을 확인하세요.
 
-### 컴포넌트 사용 예시
+### 버튼 사용 예시 (완벽한 pill 형태)
 
 ```tsx
 import { Button } from '@/components/ui/Button';
-import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/Card';
 
-function Example() {
+function ButtonExamples() {
   return (
-    <Card variant="elevated" padding="md">
-      <CardHeader>
-        <CardTitle level={3}>카드 제목</CardTitle>
-      </CardHeader>
-      <CardContent>
-        <p>카드 내용</p>
-        <Button variant="primary" size="md">
-          액션 버튼
-        </Button>
-      </CardContent>
-    </Card>
+    <div style={{ display: 'flex', gap: '12px' }}>
+      {/* Perfect pill-shaped buttons with fixed pixel sizes */}
+      <Button variant="primary" size="sm">Primary Small</Button>
+      <Button variant="secondary" size="md">Secondary Medium</Button>
+      <Button variant="ghost" size="lg">Ghost Large</Button>
+      
+      {/* Loading state */}
+      <Button variant="primary" loading>Loading...</Button>
+    </div>
+  );
+}
+```
+
+### 카드 사용 예시
+
+```tsx
+import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/Card';
+import { ImageCard } from '@/components/ui/Card';
+
+function CardExamples() {
+  return (
+    <div>
+      {/* Basic card */}
+      <Card variant="elevated" padding="md">
+        <CardHeader>
+          <CardTitle level={3}>카드 제목</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <p>카드 내용</p>
+        </CardContent>
+      </Card>
+      
+      {/* Image card with aspect ratio */}
+      <ImageCard
+        image="https://example.com/image.jpg"
+        imageAlt="예시 이미지"
+        imageAspectRatio="video"
+        title="이미지 카드"
+        description="이미지가 포함된 카드 예시"
+        variant="elevated"
+      />
+    </div>
   );
 }
 ```
@@ -113,6 +143,19 @@ Linear의 디자인 철학을 따릅니다:
 - **미묘한 글래스모피즘** 효과
 - **높은 대비의 접근성**
 - **최소한이지만 기능적인** UI
+- **완벽한 pill 형태** 버튼 디자인
+- **고정 픽셀 기반** 일관된 크기
+
+## 🔧 주요 업데이트
+
+### 버튼 시스템 완전 재설계 ⭐
+- **완벽한 pill 형태**: `border-radius: 9999px`로 완전히 둥근 모서리
+- **고정 픽셀 사이즈**: rem이 아닌 고정 픽셀로 일관된 크기 보장
+  - Small: 28px 높이, 13px 폰트
+  - Medium: 32px 높이, 13px 폰트  
+  - Large: 36px 높이, 14px 폰트
+- **CSS 전용 애니메이션**: JavaScript 이벤트 없이 순수 CSS hover 효과
+- **시각적 검증 완료**: Linear.app 디자인 참조와 픽셀 단위로 일치
 
 ## 📄 라이선스
 
