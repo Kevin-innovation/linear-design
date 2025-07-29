@@ -31,7 +31,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       gap: '8px',
       fontFamily: 'var(--linear-font-primary)',
       fontWeight: 'var(--linear-font-weight-medium)',
-      borderRadius: 'var(--linear-radius-lg)',
+      borderRadius: '9999px', // 완전히 둥근 모서리 (pill 형태)
       border: 'none',
       cursor: disabled || loading ? 'not-allowed' : 'pointer',
       transition: 'all var(--linear-duration-normal) var(--linear-easing)',
@@ -45,57 +45,48 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     const variantStyles = {
       primary: {
         backgroundColor: loading || disabled ? 'var(--linear-surface-disabled)' : 'var(--linear-accent)',
-        color: 'white',
-        ':hover': !disabled && !loading ? {
-          backgroundColor: 'var(--linear-accent-hover)',
-          transform: 'translateY(-1px)',
-          boxShadow: 'var(--linear-shadow-medium)',
-        } : {},
-        ':active': !disabled && !loading ? {
-          backgroundColor: 'var(--linear-accent-pressed)',
-          transform: 'translateY(0)',
-        } : {},
+        color: disabled ? 'var(--linear-text-disabled)' : 'white',
+        border: 'none',
+        boxShadow: 'var(--linear-shadow-small)',
       },
       secondary: {
         backgroundColor: 'transparent',
         color: disabled ? 'var(--linear-text-disabled)' : 'var(--linear-text-secondary)',
         border: '1px solid var(--linear-border-primary)',
-        ':hover': !disabled && !loading ? {
-          backgroundColor: 'var(--linear-surface-hover)',
-          borderColor: 'var(--linear-border-focus)',
-          color: 'var(--linear-text-primary)',
-        } : {},
-        ':active': !disabled && !loading ? {
-          backgroundColor: 'var(--linear-surface-pressed)',
-        } : {},
+        boxShadow: 'none',
       },
       ghost: {
         backgroundColor: 'transparent',
         color: disabled ? 'var(--linear-text-disabled)' : 'var(--linear-text-primary)',
-        ':hover': !disabled && !loading ? {
-          backgroundColor: 'var(--linear-surface-hover)',
-        } : {},
-        ':active': !disabled && !loading ? {
-          backgroundColor: 'var(--linear-surface-pressed)',
-        } : {},
+        border: 'none',
+        boxShadow: 'none',
       },
     };
 
     const sizeStyles = {
       sm: {
-        height: '32px',
+        height: '28px',
         padding: '0 12px',
-        fontSize: 'var(--linear-text-small)',
+        fontSize: '13px',
+        minWidth: '56px',
+        maxWidth: 'none',
+        width: 'auto',
       },
       md: {
-        height: '36px',
+        height: '32px',
         padding: '0 16px',
-        fontSize: 'var(--linear-text-regular)',
+        fontSize: '13px',
+        minWidth: '64px',
+        maxWidth: 'none',
+        width: 'auto',
       },
       lg: {
-        height: '40px',
+        height: '36px',
         padding: '0 20px',
-        fontSize: 'var(--linear-text-large)',
+        fontSize: '14px',
+        minWidth: '72px',
+        maxWidth: 'none',
+        width: 'auto',
       },
     };
 
@@ -106,46 +97,12 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       opacity: disabled ? 0.5 : 1,
     };
 
-    const handleMouseEnter = (e: React.MouseEvent<HTMLButtonElement>) => {
-      if (!disabled && !loading) {
-        Object.assign(e.currentTarget.style, variantStyles[variant][':hover']);
-      }
-    };
-
-    const handleMouseLeave = (e: React.MouseEvent<HTMLButtonElement>) => {
-      if (!disabled && !loading) {
-        e.currentTarget.style.backgroundColor = variantStyles[variant].backgroundColor;
-        e.currentTarget.style.transform = '';
-        e.currentTarget.style.boxShadow = '';
-        if (variant === 'secondary') {
-          e.currentTarget.style.borderColor = 'var(--linear-border-primary)';
-          e.currentTarget.style.color = 'var(--linear-text-secondary)';
-        }
-      }
-    };
-
-    const handleMouseDown = (e: React.MouseEvent<HTMLButtonElement>) => {
-      if (!disabled && !loading) {
-        Object.assign(e.currentTarget.style, variantStyles[variant][':active']);
-      }
-    };
-
-    const handleMouseUp = (e: React.MouseEvent<HTMLButtonElement>) => {
-      if (!disabled && !loading) {
-        Object.assign(e.currentTarget.style, variantStyles[variant][':hover']);
-      }
-    };
-
     return (
       <button
         ref={ref}
         style={buttonStyle}
         className={`linear-button linear-button-${variant} linear-button-${size} ${className}`}
         disabled={disabled || loading}
-        onMouseEnter={handleMouseEnter}
-        onMouseLeave={handleMouseLeave}
-        onMouseDown={handleMouseDown}
-        onMouseUp={handleMouseUp}
         {...props}
       >
         {loading && (
