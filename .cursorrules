@@ -8,7 +8,7 @@ This project uses a complete Linear.app-based design system with crawled data an
 ### Core UI Components (Required Usage)
 All UI development MUST use these existing components from `/components/ui/`:
 
-#### Buttons
+#### Buttons ⭐ UPDATED
 ```typescript
 // Use Button component - NEVER create custom buttons
 import { Button } from '@/components/ui/Button';
@@ -18,6 +18,19 @@ import { Button } from '@/components/ui/Button';
 <Button variant="primary" size="md" loading={false} icon={icon}>
   Button Text
 </Button>
+
+// CRITICAL: Button styling specifications (DO NOT MODIFY)
+// - Perfect pill shape: border-radius: 9999px
+// - Fixed pixel sizes (NOT rem-based):
+//   * sm: 28px height, 0 12px padding, 13px font, 56px min-width
+//   * md: 32px height, 0 16px padding, 13px font, 64px min-width  
+//   * lg: 36px height, 0 20px padding, 14px font, 72px min-width
+// - Color variants:
+//   * primary: var(--linear-accent) background, white text
+//   * secondary: transparent background, var(--linear-text-secondary) text
+//   * ghost: transparent background, var(--linear-text-primary) text
+// - Hover effects: translateY(-1px) + appropriate color changes
+// - CSS class-based styling with !important for consistency
 ```
 
 #### Cards
@@ -256,7 +269,7 @@ import { linearThemes, typography, spacing, borderRadius, components } from '@/l
 4. **Performance**: Components are optimized - don't add unnecessary re-renders
 5. **Consistency**: Follow the established patterns - maintain design system integrity
 
-## 🔧 Development Workflow
+## 🔧 Development Workflow ⭐ UPDATED
 
 1. Always check existing components before creating new ones
 2. Use component variants and props instead of creating similar components
@@ -264,5 +277,91 @@ import { linearThemes, typography, spacing, borderRadius, components } from '@/l
 4. Test in both dark and light themes
 5. Ensure responsive behavior on all devices
 6. Follow the established file structure and naming conventions
+7. **CRITICAL**: Always test component styling with visual verification
+8. **MANDATORY**: Use fixed pixel sizes for buttons (NOT rem/CSS variables)
+9. **REQUIRED**: Apply CSS classes with !important for styling consistency
+
+## 🎯 Button Implementation Guidelines ⭐ NEW
+
+### Testing Protocol for Button Changes:
+1. **Visual Test**: Compare rendered buttons with design reference images
+2. **Size Verification**: Ensure fixed pixel dimensions (height, padding, font-size)
+3. **Color Verification**: Check all three variants (primary, secondary, ghost)
+4. **Hover Testing**: Verify smooth hover transitions with translateY(-1px)
+5. **Cross-browser Testing**: Ensure consistency across different browsers
+
+### Button Architecture:
+- **TypeScript Component**: `/components/ui/Button.tsx` (base structure only)
+- **CSS Styling**: `/styles/globals.css` (complete styling with !important)
+- **No JavaScript Events**: Pure CSS hover/active states
+- **Fixed Measurements**: All sizes in pixels, not responsive units
+
+### Critical Success Factors:
+✅ Perfect pill shape (border-radius: 9999px)
+✅ Fixed pixel dimensions across all sizes
+✅ Consistent color behavior in all states  
+✅ Smooth hover animations
+✅ No layout shifts or size variations
+✅ Visual match with Linear.app design reference
 
 Remember: This design system is based on actual Linear.app data and maintains their design philosophy. Consistency is key to providing a professional, cohesive user experience.
+
+**Always verify visual output matches design specifications before considering any styling task complete.**
+
+## 📝 Git Commit Message Standards
+
+### Commit Message Template
+```
+[type](scope): [action] [subject] with Linear design standards
+
+Examples:
+feat(ui): implement perfect Button with pill-shape and fixed pixels
+polish(design): refine color harmony across all component variants  
+docs(system): document component architecture and usage patterns
+arch(system): optimize CSS-only animations for smoother interactions
+chore(clean): remove deprecated pages and focus on core library
+```
+
+### Type Categories
+- **feat** - New features/components implementation
+- **polish** - Visual design refinement and perfection
+- **fix** - Bug fixes and issue resolution
+- **docs** - Documentation and guidelines updates
+- **arch** - Architecture improvements and optimization
+- **chore** - Maintenance, cleanup, and project organization
+- **test** - Testing, validation, and quality assurance
+
+### Scope Keywords
+- **ui** - UI components (Button, Card, Input, etc.)
+- **design** - Design system foundations (colors, typography, spacing)
+- **system** - Overall system architecture and organization
+- **components** - Component library management
+
+### Action Verbs
+- **implement** - Create new functionality
+- **perfect** - Achieve pixel-perfect design
+- **refine** - Improve existing implementation
+- **optimize** - Performance and efficiency improvements
+- **document** - Add or update documentation
+- **restructure** - Reorganize code architecture
+- **remove** - Clean up unused code
+- **enhance** - Add improvements to existing features
+
+### Subject Guidelines
+- Use present tense ("implement" not "implemented")
+- Keep under 50 characters for the first line
+- Be specific about what was changed
+- Always reference Linear design standards when applicable
+- Focus on the outcome and value delivered
+
+### Prohibited Elements
+- NO emoji or special characters
+- NO exclamation marks or excessive punctuation
+- NO personal pronouns (I, we, my, our)
+- NO vague descriptions ("fix stuff", "update things")
+
+### Required Elements
+- Must include scope in parentheses
+- Must reference design system principles when relevant
+- Must be descriptive enough to understand impact
+- Must follow the established template format
